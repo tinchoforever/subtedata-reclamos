@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('initApp',['ngRoute', 'ngAnimate'])
+angular.module('initApp',['ngRoute', 'ngAnimate', 'c3', 'chart.js'])
 .config(['$compileProvider', function($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|whatsapp|file|tel):/);
   }])
@@ -21,7 +21,7 @@ angular.module('initApp',['ngRoute', 'ngAnimate'])
 }])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/principal', {
         templateUrl: 'views/principal.html',
         controller: 'mainController'
       })
@@ -33,7 +33,7 @@ angular.module('initApp',['ngRoute', 'ngAnimate'])
         templateUrl: 'views/temas.html',
         controller: 'temasController'
       })
-      .when('/ponderado', {
+      .when('/', {
         templateUrl: 'views/ponderado.html',
         controller: 'ponderadoController'
       })

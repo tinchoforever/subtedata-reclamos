@@ -28,8 +28,9 @@
 <!-- Style -->
 <link href="stylesheets/animate.css"  rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<link type="text/css" rel="stylesheet" href="bower_components/c3/c3.min.css" />
 <link type="text/css" rel="stylesheet" href="css/subtedata.css"/>
-<link type="text/css" rel="stylesheet" href="css/viz.css"/>
+
 
 </head>
 
@@ -45,19 +46,32 @@
 <!-- Dependencies -->
 <script src='bower_components/jquery-1.10.2.min.js''></script>
 <script src='//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.map"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
+    
+    <script src="javascripts/colorbrewer.min.js"></script>
 <script src='bower_components/angular/angular.min.js'></script>
 
-<script src='bower_components/angular/angular-animate.min.js'></script>
-<script src='bower_components/angular/angular-route.min.js'></script>
+<script src='bower_components/angular-animate/angular-animate.min.js'></script>
+<script src='bower_components/angular-route/angular-route.min.js'></script>
 <script src="bower_components/wow/dist/wow.js"></script>
 <script src="bower_components/d3/d3.js"></script>
+<script src="bower_components/c3/c3.min.js"></script>
+<script src="bower_components/chart.js/dist/Chart.min.js"></script>
+<script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+
+
+
+<script src="bower_components/angular-c3-directive/angular-c3.js"></script>
+<script src="bower_components/async/dist/async.min.js"></script>
 <script src='js/app.js'></script>
+<script src='js/services/stats.js'></script>
 <script src='js/controllers/estaciones.js'></script>
 <script src='js/controllers/ponderado.js'></script>
 <script src='js/controllers/principal.js'></script>
 <script src='js/controllers/temas.js'></script>
-
+<script src='js/directives/subteChart.js'></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120580712-1"></script>
