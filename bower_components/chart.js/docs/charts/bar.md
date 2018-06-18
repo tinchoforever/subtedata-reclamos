@@ -1,22 +1,6 @@
 
               
-## Example Usage
-```javascript
-var myBarChart = new Chart(ctx, {
-    type: 'bar',
-    data: data,
-    options: options
-});
-```
-
-## Dataset Properties
-The bar chart allows a number of properties to be specified for each dataset. These are used to set display properties for a specific dataset. For example, the colour of the bars is generally set this way.
-
-Some properties can be specified as an array. If these are set to an array value, the first value applies to the first bar, the second value to the second bar, and so on.
-
-| Name | Type | Description
-| ---- | ---- | -----------
-| `label` | `String` | The label for the dataset which appears in the legend and tooltips.
+##  appears in the legend and tooltips.
 | `xAxisID` | `String` | The ID of the x axis to plot this dataset on. If not specified, this defaults to the ID of the first found x axis
 | `yAxisID` | `String` | The ID of the y axis to plot this dataset on. If not specified, this defaults to the ID of the first found y axis.
 | `backgroundColor` | `Color/Color[]` | The fill color of the bar. See [Colors](../general/colors.md#colors)
@@ -191,4 +175,3 @@ var myBarChart = new Chart(ctx, {
 
 ## Config Options
 The configuration options for the horizontal bar chart are the same as for the [bar chart](#configuration-options). However, any options specified on the x axis in a bar chart, are applied to the y axis in a horizontal bar chart.
-
