@@ -21,6 +21,7 @@ angular.module('initApp')
 		})
 		
 		reloadGraph($scope.serve);
+    $scope.getFilteredEstacion();
 
     };
     $scope.$watch('currentMapEstacion', function(){
@@ -41,10 +42,10 @@ angular.module('initApp')
   						if (!isNaN(parseInt($scope.selectedYear))){
   							filterYear = parseInt(i["Año"]) == $scope.selectedYear;
   						}
-  						if ($scope.selectedEstacion != "TODAS"){
-  							filterEstacion = i["Estación"].toLowerCase().trim()  ==  statsService.currentMapEstacion.estacion;
-  							filterLinea = true;
-  						}
+  						
+							filterEstacion = i["Estación"].toUpperCase().trim()  ==  $scope.currentMapEstacion.estacion;
+							filterLinea = true;
+  					
 
 
   						return filterYear && filterLinea && filterEstacion;
@@ -53,7 +54,7 @@ angular.module('initApp')
   			})
       	.sort(function(a,b){
   			return a.valor - b.valor;
-  		});
+  		}).reverse();
     };
 
     $scope.getFilteredData = function(){
@@ -102,7 +103,9 @@ angular.module('initApp')
     	$scope.selectEstacionOption = ['TODAS'].concat(statsService.estaciones.map(function(m){
     		return m.key;
     	}).sort());
-  		$scope.changeOption();
+  		setTimeout(function(){
+        $scope.changeOption();
+      },1200);
   	});
   });
 });

@@ -169,7 +169,6 @@ var reRender = function(renderId){
                   $scope.currentMapEstacion = currentValue[0]
                   $scope.currentMapEstacion.color = subteColor[nombreEstacion[0].LINEA];
                   $scope.currentMapEstacion.linea = nombreEstacion[0].LINEA;
-                  $scope.getFilteredEstacion();
                 });
 
                

@@ -26,10 +26,7 @@
 			<span ng-repeat="z in ultimosTres">
 				<strong> {{z.categoria}}</strong> <strong> {{z.valor}}    </strong> veces
 			</span>
-				<subte-chart
-		container="'subte'"
-		lines="serve"
-	></subte-chart>
+
 			<div ng-show="currentMapEstacion">
 <h4> En {{currentMapEstacion.estacion}} {{currentMapEstacion.linea}} hubieron  {{currentMapEstacion.valor}} reclamos, donde los mas importantes fueron </h4> 
 <span ng-repeat="r in currentMove">
@@ -41,3 +38,7 @@
 </div>
 
 
+				<subte-chart
+		container="'subte'"
+		lines="serve"
+	></subte-chart>
