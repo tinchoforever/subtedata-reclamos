@@ -18,7 +18,7 @@ angular.module('initApp')
 
               console.log('render');
               console.log($scope.data);
-              reRender($scope.id);
+              reRender($scope.id, $scope.container);
           }
 
           setTimeout(function(){
@@ -31,6 +31,7 @@ angular.module('initApp')
             id = setTimeout(function(){
               if($scope.chart){
                 render();
+
               }
             }, 500);
     });
@@ -45,7 +46,7 @@ angular.module('initApp')
 
 
 var reRender = function(renderId){
-
+  var mainDataset,selectedEstaciones, selectedCircles;
   var monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun",
     "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"
   ];
@@ -160,51 +161,23 @@ var reRender = function(renderId){
       var id=  d3.select(this).attr("id");
             var nombreEstacion = nombreEstaciones.filter(function(d) { return d.ID === id; }); 
               if (nombreEstacion.length > 0){  
-                var currentValue = selectedEstaciones.filter(function(d) { return d.estacion === nombreEstacion[0].ESTACION});  
-                 if (currentValue.length > 0){  
-                  tooltipMap
-                    .html( function(){
-                      var div =  "", valor = 0, valorAlberti = 0;
-                      div += "<div class='key'><span style='background:" + subteColor[nombreEstacion[0].LINEA] + "' class='swatch'></span> <span class='year'> ";
+                var currentValue = selectedEstaciones.filter(function(d) { 
+                   var result = d.estacion === nombreEstacion[0].ESTACION;
+                  return result;});  
+                var $scope = angular.element(document.getElementById('reclamos')).scope();
+                $scope.$apply(function(){
+                  $scope.currentMapEstacion = currentValue[0]
+                  $scope.currentMapEstacion.color = subteColor[nombreEstacion[0].LINEA];
+                  $scope.currentMapEstacion.linea = nombreEstacion[0].LINEA;
+                  $scope.getFilteredEstacion();
+                });
 
-                      if(nombreEstacion[0].ID == 36){ // TODO ESTO ES PARA SUMAR ALBERTI + PASCO
-                          valorAlberti = selectedEstaciones.filter(function(d) { return d.estacion =="ALBERTI"});
-                          div += "PASCO/ALBERTI </span> "; 
-                          valor = formatMiles(currentValue[0].value+valorAlberti[0].value)
-                      } else{
-                          div += nombreEstacion[0].ESTACION + "</span> ";
-                          valor = formatMiles(currentValue[0].price)
-
-                      }
-                      div += " " + $('#hora').val() + "h </span> <span class='value'>" + valor + " personas " + "</span></div>" ;
-                      return div;
-                    })
-                    .style("visibility", "visible");
-                }
+               
               }
-                else {
-                  console.log(id, 'no-value');
-                }
-  }
+  };
 
     var showGraphTooltip = function(linea,hora,valor,mes){
-              tooltipGraph
-                .html( function(){
-                  var div =  ""
-                  if (!linea) linea = 0;
-                  if (!mes) mes = 0;
-
-                  if(linea !=0){
-                    div += "<div class='key'><div style='background:" + subteColor[linea] + "' class='swatch'></div> <span class='year'> Linea "+ linea + " a las</span>";
-                  }else{
-                    div += "<span class='year'> Todas las líneas a las</span>";
-                  }
-                  if(mes!=0) div += " ("+ meses[mes] + ")"
-
-                  div += " "  + hora + "hs: </span> <span class='value'>" + formatMiles(valor) + " personas " + "</div>" ;
-                  return div;
-                })
-                .style("visibility", "visible");
+             
                 
           };
   var mainDataset,stream;
@@ -234,7 +207,7 @@ var reRender = function(renderId){
 
     var stream  = svg.selectAll(".group")
         .data(layers);
-      g = stream.enter();
+    var  g = stream.enter();
 
       var group  = g.append("g");
 
@@ -279,7 +252,7 @@ var reRender = function(renderId){
         //   if (xDate == h){
 
         //     highlightLine(d.key,$('#mes').val(), f.date.getHours());
-        //     showGraphTooltip(d.key,f.date.getHours(),f.value);
+        //     xrfshowGraphTooltip(d.key,f.date.getHours(),f.value);
         //   }
         // });
       })
@@ -327,7 +300,7 @@ var reRender = function(renderId){
     // t.select('line.guide')
     //   .attr('transform', 'translate(' + width + ', 0)');
 
-    update(molinetaHoras);
+    update(mainDataset);
 
     d3.selectAll('g.tick')
       .select('line') //grab the tick line
@@ -347,87 +320,16 @@ var reRender = function(renderId){
       
     }
 
-    $('#hora').on('input change',function(){
-
-        $('.hora-val').html($(this).val());
-
-        if ($('#mes').val() === '0' && $('#linea').val() === '0' ){
-        update(molinetaHoras);
-       }
-       else if ($('#mes').val() === '0'){
-          update(molinetaHoras,$('#mes').val(),$('#linea').val());
-       }
-       else {
-         update(lineasMensual,$('#mes').val(), $('#linea').val());
-       }
-        
-
-    });
-    $('#mes').on('change',function(){
-
-      if ($('#mes').val() === '0' && $('#linea').val() === '0' ){
-        update(molinetaHoras);
-       }
-       else if ($('#mes').val() === '0'){
-          update(molinetaHoras,$('#mes').val(),$('#linea').val());
-       }
-       else {
-          update(lineasMensual,$('#mes').val(), $('#linea').val());
-       }
-    });
-
-
-    $('#linea').on('change',function(){
-      
-     if ($('#mes').val() === '0' && $('#linea').val() === '0' ){
-      update(molinetaHoras);
-      previousLineState = 0;
-     }
-     else if ($('#mes').val() === '0'  && $('#linea').val() !== 'multiples' ){
-        update(molinetaHoras,$('#mes').val(),$('#linea').val());
-              previousLineState = $('#linea').val();
-
-     }
-     else if ($('#linea').val() !== 'multiples'){
-        update(lineasMensual,$('#mes').val(), $('#linea').val());
-                      previousLineState = $('#linea').val();
-
-     }else{
-      if(previousLineState) {
-        update(molinetaHoras,0,0);
-        previousLineState = 0;
-       }
-       transitionMultiples();
-     }
-      
-    });
-    
-    function update(dataset,mes,linea) {
+    function update() {
         
 
        
-      mainDataset = dataset;
+      
 
-      //filter
-      if (mes >0){
-        mainDataset = mainDataset.filter(function(d) { 
-          if (d.mes){
-            return d.mes === mes;
-          }
-          else {
-           return  d.date.getMonth() === parseInt(mes);
-          }
-        });
-                  d3.select("#escalaNumber").text("25.000");
+      
+      
 
-      }else{
-                  d3.select("#escalaNumber").text("250.000");
-
-      }
-      if (linea && linea !== '0'){
-        mainDataset = mainDataset.filter(function(d) { return d.group === linea});
-      }
-
+      
       //prepareStream
       var filtered = mainDataset;
       var nested = nest.entries(filtered);
@@ -460,87 +362,31 @@ var reRender = function(renderId){
           
      
       
-      var hora = $('#hora').val();
-       if (linea && linea !== '0' && linea != "multiples"){
-              
-        var item = mainDataset.filter(function(d) { return d.date.getHours() === parseInt(hora)});
-                showGraphTooltip(linea,hora,item[0].price,mes);
-
-
-      }else{
-                var item = mainDataset.filter(function(d) { return d.date.getHours() === parseInt(hora)});
-
-                var sumatoria = 0;
-                for (var i = item.length - 1; i >= 0; i--) {
-                  sumatoria += parseInt(item[i].price);
-                }
-                showGraphTooltip(linea,hora,sumatoria,mes);
-      } 
-
-
-      highlightLine(linea,mes,$('#hora').val());
-                vertical.style("left", xScale(parseDate(parseInt(hora) +1+ ":01:00"))+"px")
+      
+      // showGraphTooltip(linea,hora,sumatoria,mes);
+      highlightLine(0);
+                // vertical.style("left", xScale(parseDate(parseInt(hora) +1+ ":01:00"))+"px")
 
     } // ~~~fin update
 
 
-    function highlightLine(linea,mes,hora){
+    function highlightLine(linea){
       //filterLine
       clearMapToolTip();
-      var baseR = 18;
-      // if (linea && linea !== '0'){
-        
-          if (mes > 0){
-            selectedEstaciones = mainEstacionesMes.filter(function(d) { return d.mes === mes});
-          }
-          else {
-            selectedEstaciones = mainEstacionesAnual;
-          }
-            if (hora){
-              selectedEstaciones =  selectedEstaciones.filter(function(d) { 
-                  if (d.hora){
-                    return d.hora === hora;
-                  }
-                  else {
-                    try {
-                      return  d.date.getHours() === parseInt(hora)
-                    }
-                    catch(e){
-                      console.log(d);
-                    }
-                    return false;
-                  }
-                
-              });  
-            }
-            if (linea  && linea!== "0"){
-              selectedEstaciones = selectedEstaciones.filter(function(d) { return d.symbol === linea})
-            }
+      var baseR = 2;
+          
+            selectedEstaciones = mainDataset;
+
 
            
-          var scale = 2500;
-
-
-          if (!mes){ // Si esta en "total anuales"
-            scale= 5000;
-          }
-          else {
-
-            scale= 500;
-          }
+          var scale = 5;
+          d3.select("#escalaNumber").text("25.000");
 
 
           //Tengo estaciones, ahora necesito claves.
           var selectedCircles =d3.selectAll("#" + renderId + " svg .linea circle");
 
           if (linea && linea !== "0"){
-              if (mes > 0){
-                  scale= 500;
-                }
-              else{
-                scale= 5000;
-              }
-
               selectedCircles =d3.selectAll("#" + renderId + "  svg .linea_" + linea +  " circle");
           }
 
@@ -555,29 +401,21 @@ var reRender = function(renderId){
           .duration(300)
           .style("fill", function(d, i) { return  "white"; })
           .style("stroke-opacity", 1)
-          // .style("fill", function(d, i) { 
-          //     var id=  d3.select(this).attr("id");
-          //     var nombreEstacion = nombreEstaciones.filter(function(d) { return d.ID === id; }); 
-          //     if (nombreEstacion.length > 0){  
-          //      return  subteColor[nombreEstacion[0].LINEA]; 
-          //     }
-          //     else {
-          //       return "white";
-          //     }
-            
-          // })
           .attr('r', function(d){
             var id=  d3.select(this).attr("id");
             var nombreEstacion = nombreEstaciones.filter(function(d) { return d.ID === id; }); 
             if (nombreEstacion.length > 0){  
-              var currentValue = selectedEstaciones.filter(function(d) { return d.estacion === nombreEstacion[0].ESTACION});  
+              var currentValue = selectedEstaciones.filter(function(d) { 
+                var result =  d.estacion === nombreEstacion[0].ESTACION
+                return result ;
+              });  
                if (currentValue.length > 0){ 
-                if(nombreEstacion[0].ESTACION == "PASCO"){
-                    var valorAlberti = selectedEstaciones.filter(function(d) { return d.estacion =="ALBERTI"});
-                    return (valorAlberti[0].value + currentValue[0].value)*10/scale;
-                } else{
+                // if(nombreEstacion[0].ESTACION == "PASCO"){
+                //     var valorAlberti = selectedEstaciones.filter(function(d) { return d.estacion =="ALBERTI"});
+                //     return (valorAlberti[0].value + currentValue[0].value)*10/scale;
+                // } else{
                   return (currentValue[0].price+0)/scale;
-                }
+                
 
                 
               }
@@ -626,62 +464,28 @@ var reRender = function(renderId){
 
   }
 
-
+  window.reloadGraph = function(data){
+    mainDataset = prepareData(data);
+    loadDataset(data);
+  }
   var prepareData = function(dataToConvert){
         //load
          dataToConvert.forEach(function(z) {
-          z.price = parseFloat(z.price);
-          z.group = z.symbol;
-          if (z.date){
-            z.date = parseDate(z.date);
-          }
+          z.price = parseFloat(z.valor);
+          // z.group = z.symbol;
           z.value = +z.price;
-          z.mes = z.mes;
-          if (z.estacion){
-            z.estacion = z.estacion.toUpperCase();
+          if (z.categoria){
+            z.estacion = z.categoria.toUpperCase();
           }
-          // if(d.hasOwnProperty("estacion")){
-          //   if(d.estacion == "PASCO"){
-          //     console.log(d.estacion);
-          //   }
-          // }
-        });
-
-
-
-
-        dataToConvert.sort(function(a, b) {
-           return d3.descending(a.group,b.group) || a.date - b.date;
         });
         return dataToConvert;
   };
 
- var mainEstaciones, molinetaHoras,mainEstacionesAnual,lineasMensual, nombreEstaciones, selectedEstaciones;
-   
+  var nombreEstaciones;
   var init = function(currentYear){
-   
-   d3.csv("data/"+currentYear+"/estaciones-all.csv", function(error, estaciones) {
-        mainEstacionesMes  = prepareData(estaciones);
-        d3.csv("data/"+currentYear+"/estaciones_anual.csv", function(error, dataMainEstacionesAnual) {
-          mainEstacionesAnual = prepareData(dataMainEstacionesAnual);
-
-          d3.csv("data/"+currentYear+"/molinetes_hora.csv", function(error, dataMolinetaHoras) {
-                  molinetaHoras  = prepareData(dataMolinetaHoras);
-                  loadDataset(molinetaHoras);
-           });
-        });
-   });
-
-    d3.csv("data/"+currentYear+"/molinetes_hora_mes.csv",function(error, dataLineasMensual) {
-        lineasMensual = prepareData(dataLineasMensual);
-   });
-
-   
-   d3.csv("data/"+currentYear+"/molinetes_hora_anual.csv", function(error, dataDatasetAnual) {
-    datasetAnual = prepareData(dataDatasetAnual);
-   });
-   d3.csv("data/"+currentYear+"/nombre-estaciones.csv", function(error, dataNombreEstaciones) {
+   d3.csv("data/nombre-estaciones.csv", function(error, dataNombreEstaciones) {
     nombreEstaciones = dataNombreEstaciones;
+    
    });
   };
 

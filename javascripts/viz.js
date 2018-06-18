@@ -112,29 +112,12 @@
   var renderMapTooltip = function(){
     d3.select(this).style("stroke-width","24px");
       var id=  d3.select(this).attr("id");
-            var nombreEstacion = nombreEstaciones.filter(function(d) { return d.ID === id; }); 
+              var nombreEstacion = nombreEstaciones.filter(function(d) { return d.ID === id; }); 
               if (nombreEstacion.length > 0){  
                 var currentValue = selectedEstaciones.filter(function(d) { return d.estacion === nombreEstacion[0].ESTACION});  
-                 if (currentValue.length > 0){  
-                  tooltipMap
-                    .html( function(){
-                      var div =  "", valor = 0, valorAlberti = 0;
-                      div += "<div class='key'><span style='background:" + subteColor[nombreEstacion[0].LINEA] + "' class='swatch'></span> <span class='year'> ";
 
-                      if(nombreEstacion[0].ID == 36){ // TODO ESTO ES PARA SUMAR ALBERTI + PASCO
-                          valorAlberti = selectedEstaciones.filter(function(d) { return d.estacion =="ALBERTI"});
-                          div += "PASCO/ALBERTI </span> "; 
-                          valor = formatMiles(currentValue[0].value+valorAlberti[0].value)
-                      } else{
-                          div += nombreEstacion[0].ESTACION + "</span> ";
-                          valor = formatMiles(currentValue[0].price)
+                 console.log(currentValue,subteColor[nombreEstacion[0].LINEA]);
 
-                      }
-                      div += " " + $('#hora').val() + "h </span> <span class='value'>" + valor + " personas " + "</span></div>" ;
-                      return div;
-                    })
-                    .style("visibility", "visible");
-                }
               }
                 else {
                   console.log(id, 'no-value');
@@ -151,7 +134,7 @@
                   if(linea !=0){
                     div += "<div class='key'><div style='background:" + subteColor[linea] + "' class='swatch'></div> <span class='year'> Linea "+ linea + " a las</span>";
                   }else{
-                    div += "<span class='year'> Todas las líneas a las</span>";
+                    div += "<span class='year'> Todas las lÃ­neas a las</span>";
                   }
                   if(mes!=0) div += " ("+ meses[mes] + ")"
 
@@ -441,7 +424,7 @@
        if (linea && linea !== '0' && linea != "multiples"){
               
         var item = mainDataset.filter(function(d) { return d.date.getHours() === parseInt(hora)});
-                showGraphTooltip(linea,hora,item[0].price,mes);
+                // showGraphTooltip(linea,hora,item[0].price,mes);
 
 
       }else{
@@ -684,4 +667,3 @@ var breakpoint = breakCalc($(window).width());
 $(window).resize(function(){
   var breakpoint = breakCalc($(window).width());
 })
-
