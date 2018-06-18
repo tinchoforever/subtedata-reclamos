@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('initApp')
-  .controller('temasController', function ($scope,$rootScope, statsService) {
+  .controller('temasController', function ($scope,$rootScope,$timeout, statsService) {
 
 	$scope.changeOption = function(){
 		if ($scope.selectedEstacion != 'TODAS'){
@@ -20,13 +20,20 @@ angular.module('initApp')
 			return t.valor;
 		})
 		
-		reloadGraph($scope.serve);
-    $scope.getFilteredEstacion();
-
+		
+      $scope.setCurrentTooltipEstacion();
+      reloadGraph($scope.serve);
     };
-    $scope.$watch('currentMapEstacion', function(){
-    	$scope.getFilteredEstacion();
-    })
+
+    $scope.setCurrentTooltipEstacion = function(){
+    
+      if ($scope.currentMapEstacion){
+       $scope.getFilteredEstacion();
+      }
+    
+    }
+
+    $scope.$watch('currentMapEstacion', $scope.setCurrentTooltipEstacion);
 
     $scope.getFilteredEstacion = function(){
       $scope.currentMove = statsService.reclamosTema
@@ -76,12 +83,7 @@ angular.module('initApp')
   							filterLinea = i["Línea"] == $scope.selectedLinea;
   							filterEstacion = true;
   						}
-  						else if ($scope.selectedEstacion != "TODAS"){
-  							filterEstacion = i["Estación"].toLowerCase().trim()  == $scope.selectedEstacion;
-  							filterLinea = true;
-  						}
-
-
+  					
   						return filterYear && filterLinea && filterEstacion;
   					}).length
   				}
@@ -103,7 +105,7 @@ angular.module('initApp')
     	$scope.selectEstacionOption = ['TODAS'].concat(statsService.estaciones.map(function(m){
     		return m.key;
     	}).sort());
-  		setTimeout(function(){
+  		$timeout(function(){
         $scope.changeOption();
       },1200);
   	});

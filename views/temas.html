@@ -18,13 +18,10 @@
 				los usuarios reclamaron <span ng-show="selectedLinea =='Sin especificar'">  <strong> sin especificar una estación </strong></span> por 
 			</span>
 			<span ng-show="selectedEstacion != 'TODAS'">
-				en la estación <strong>{{selectedEstacion}} </strong>los usuarios del subte reclamaron por 
+				en la estación <strong>{{selectedEstacion}} </strong>los usuarios del subte reclamaron en la estación 
 			</span>
 			<span ng-repeat="r in primerosTres">
 				<strong> {{r.categoria}} </strong> unas  <strong> {{r.valor}} </strong> veces,
-			</span> y lo menores reclamos fueron 
-			<span ng-repeat="z in ultimosTres">
-				<strong> {{z.categoria}}</strong> <strong> {{z.valor}}    </strong> veces
 			</span>
 
 			<div ng-show="currentMapEstacion">
