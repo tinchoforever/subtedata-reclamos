@@ -1,7 +1,60 @@
 'use strict';
-
 angular.module('initApp')
-  .controller('estacionesController', function ($scope) {
+  .controller('estacionesController', function ($scope, $rootScope,$timeout, $location, statsService) {
 
+
+	$scope.changeOption = function(){
+		
+		
+
+    };
+      $scope.series = ['Meses'];
+       $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }];
+  	$scope.options = {
+    	scales: {
+      yAxes: [
+        {
+          id: 'y-axis-1',
+          type: 'linear',
+          display: true,
+          position: 'left'
+        }
+      ]
+    }
+  };
+   
+ 	
+  
+   $scope.showDetail = function(linea,mes){
+   	$scope.detailOn = true;
+   	$scope.selectedLinea = linea;
+   	$scope.selectedMonth = mes;
+   	$scope.labels = linea.years[$scope.selectedYear.opts].months.map(function(t){
+			return t.key;
+		});
+		$scope.data = linea.years[$scope.selectedYear.opts].months.map(function(t){
+			return t.values.length;
+		})
+   };
+   $scope.closeDetail= function(){
+   	$scope.detailOn = false;
+   	$scope.selectedLinea = '';
+   	$scope.selectedMes = '';
+   };
+
+  statsService.loadAll(function(){
+  	$scope.$apply(function(){
+  		
+    	$scope.selectOptions = statsService.years.map(function(m,i){
+    		return {
+    			year:m,
+    			opts:i
+    		}
+    	});
+    	$scope.selectedYear = $scope.selectOptions[$scope.selectOptions.length-1];
+    	
+    	$scope.stats = statsService;
+  	});
+  });
 
 });

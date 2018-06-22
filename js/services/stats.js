@@ -61,6 +61,45 @@ angular.module('initApp').factory('statsService', function($http, $filter) {
 			          return d['Línea'];
 			        })
 		        .entries(factory.all);
+
+
+		        factory.lineas.map(function(l){
+		        	//year
+		        	// Año,Fecha,Mes,Día de la semana,Día,Tema,Sub Tema,Línea,Estación
+		        	l.years = d3
+		        		.nest()
+			        	.key(function(d) {
+        					return d['Año'];
+		        		})
+		        		.entries(l.values);
+		        		//MESES
+			        	l.years.map(function(y){
+			        		y.months = d3
+			        		.nest()
+				        	.key(function(d) {
+	        					return d['Mes'];
+
+			        		})
+			        		.entries(y.values);
+			        	//temas 
+		        		y.months.map(function(m){
+			        		 m.temas = d3.nest()
+			        			.key(function(d) {
+					         	 d["Sub Tema"] = d["Sub Tema"].toLowerCase().trim().replace('- subte','').trim();
+		          				return d["Sub Tema"];
+					        })
+					        .entries(m.values);
+					        //ordeno de mayor a menor
+					        m.temas = m.temas.sort(function(a,b){
+  								return -a.values.length+  b.values.length
+  							});
+		        		});
+		        	});
+
+		        });
+
+
+
 			 	cb();
 			});
 		},			
