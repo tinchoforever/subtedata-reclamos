@@ -7,20 +7,22 @@
 
 	<div class="row" ng-hide="detailOn">
 		<div class="col-xs-1">
-			<div class="row">
-				<div class="col-xs-12">
-					<h3> - </h3>
+				<h3> - </h3>
+				<div ng-repeat="mes in stats.lineas[0].years[0].months">
+					<div class="row  linea-mes ">
+						<h3> {{mes.key}} </h3>
+					</div>
 				</div>
-				<div class="col-xs-12"  ng-repeat="mes in stats.lineas[0].years[0].months">
-					<h3> {{mes.key}} </h3>
-				</div>
-			</div>
 		</div>
 		<div class="col-xs-1" ng-repeat="linea in stats.lineas">
 			<h3>{{linea.key}}</h3>
-			<div class="row" ng-repeat="m in linea.years[selectedYear.opts].months">
-				<h3> <a href="" ng-click="showDetail(linea,m)"> {{m.values.length}} </a> </h3>
+			<div class="" ng-repeat="mes in stats.lineas[0].years[0].months">
+				<div class="row linea-mes color-{{linea.key}} " style="background-color: {{ setColorFor(linea,mes) }};" >
+					<h3> <a href="" ng-click="showDetail(linea,mes)" > {{ getValueFor(linea,mes) }} </a> </h3>
+				</div>	
 			</div>
+
+			
 		</div>
 	</div>
 	<div class="row" ng-show="detailOn">
@@ -38,20 +40,15 @@
 	    		</div>
 	    	</div>
     	</div>
-    	<canvas id="bar" class="chart chart-line" chart-data="data" chart-labels="labels"
+    	<div class="col-xs-8">
+    		<canvas  id="mainChart"  class="chart chart-line" chart-data="data" chart-labels="labels"
                       chart-series="series" chart-options="options"></canvas>
-		<div  id="chart">
-		</div>
-	    <div ng-repeat="meses in selectedLinea.years[selectedYear.opts].months" >
-	    	<div class="row">
-	    		<div class="col-md-8">
-	    			<h3> <strong>{{meses.key}}</strong></h3>
-	    		</div>
-	    		<div class="col-md-4">
-	    			<h2>{{meses.values.length}}</h2>
-	    		</div>
-	    	</div>
-	    </div>
+
+    	</div>
+    </div>
+
+    	
+	 
 
 	</div>
 

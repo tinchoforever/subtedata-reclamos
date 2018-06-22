@@ -5,7 +5,16 @@ angular.module('initApp').factory('statsService', function($http, $filter) {
 
 	var factory = {
 
-		
+		subteColors: {
+            'A': {r: 0, g:174, b:219},
+            'B': {r: 238, g:47, b:46},
+            'C': {r: 1, g:103, b:178},
+            'D': {r: 0, g:128, b:103},
+            'E': {r: 108, g:33, b:128},
+            'H': {r: 255, g:210, b:3},
+            'P': {r: 255, g:210, b:3},
+            "Sin Especificar": {r: 255, g:210, b:3},
+         },
 		loadAll: function(cb){
 			var file = 'reclamos.csv';
 		    factory.dataset = [];
@@ -62,6 +71,12 @@ angular.module('initApp').factory('statsService', function($http, $filter) {
 			        })
 		        .entries(factory.all);
 
+		        factory.lineas = factory.lineas.sort(function(a,b){
+		        	    if(a.key < b.key) return -1;
+					    if(a.key > b.key) return 1;
+					    return 0;
+		        })
+
 
 		        factory.lineas.map(function(l){
 		        	//year
@@ -82,8 +97,18 @@ angular.module('initApp').factory('statsService', function($http, $filter) {
 			        		})
 			        		.entries(y.values);
 			        	//temas 
+			        	var min = Math.min.apply(Math, y.months.map(function(d){return d.values.length;}))
+			        	var max = Math.max.apply(Math, y.months.map(function(d){return d.values.length;}))
+			        	var color = factory.subteColors[l.key];
+			        	if (!color){
+			        		color = {r: 255, g:210, b:3};
+			        	}
+			        	var subtecolor = d3.rgb(color.r,color.g, color.b);
+
+			        	y.color = d3.scale.linear().domain([min,max])
+					      .range([subtecolor.brighter(), subtecolor.darker()]);
 		        		y.months.map(function(m){
-			        		 m.temas = d3.nest()
+			        		m.temas = d3.nest()
 			        			.key(function(d) {
 					         	 d["Sub Tema"] = d["Sub Tema"].toLowerCase().trim().replace('- subte','').trim();
 		          				return d["Sub Tema"];
@@ -93,7 +118,13 @@ angular.module('initApp').factory('statsService', function($http, $filter) {
 					        m.temas = m.temas.sort(function(a,b){
   								return -a.values.length+  b.values.length
   							});
+
+
 		        		});
+
+
+
+
 		        	});
 
 		        });

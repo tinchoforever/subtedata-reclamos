@@ -2,7 +2,7 @@
 
 angular.module('initApp')
   .controller('temasController', function ($scope,$rootScope,$timeout, statsService) {
-
+   
 	$scope.changeOption = function(){
 		if ($scope.selectedEstacion != 'TODAS'){
 			$scope.selectLinea = 'TODAS';

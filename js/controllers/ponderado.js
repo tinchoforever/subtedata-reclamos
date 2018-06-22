@@ -2,6 +2,13 @@
 
 angular.module('initApp')
   .controller('ponderadoController', function ($scope, $rootScope,$timeout, $location, statsService) {
+   $scope.options = {
+        responsive: true,
+        title:{
+            display:true,
+            text: 'Chart.js'
+        },
+    };
 
 
 	$scope.changeOption = function(){
@@ -14,9 +21,11 @@ angular.module('initApp')
 		$scope.serve =  $scope.getFilteredData();
 		$scope.primerosTres = $scope.serve.reverse().slice(0,3);
 		$scope.ultimosTres = $scope.serve.reverse().slice(0,3);
-		$scope.labels = $scope.serve.map(function(t){
-			return t.categoria;
-		});
+    if (!$scope.labels){
+		  $scope.labels = $scope.serve.map(function(t){
+			  return t.categoria;
+		  });
+    }
 		$scope.data = $scope.serve.map(function(t){
 			return t.valor;
 		})
@@ -54,9 +63,9 @@ angular.module('initApp')
   					}).length
   				}
   			})
-      	.sort(function(a,b){
-  			return a.valor - b.valor;
-  		});
+    //   	.sort(function(a,b){
+  		// 	return a.valor - b.valor;
+  		// });
     };
  	
   

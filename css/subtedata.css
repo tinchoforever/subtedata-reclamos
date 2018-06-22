@@ -333,3 +333,21 @@ h3.article.button.button-primary{
     }
     
 }
+
+.linea-mes{
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;   
+}
+
+.linea-mes a {
+    color: white;
+    font-style: normal;
+    font-size: 0.8em;
+}
+
+.row.linea-mes {
+    text-align: center;
+    padding: 0.5em;
+    
+}
