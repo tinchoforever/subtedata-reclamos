@@ -4,13 +4,11 @@ angular.module('initApp')
   .controller('ponderadoController', function ($scope, $rootScope,$timeout, $location, statsService) {
    $scope.options = {
         responsive: true,
-        title:{
-            display:true,
-            text: 'Chart.js'
-        },
+        color:['#97BBCD', '#DCDCDC', '#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
     };
 
 
+  
 	$scope.changeOption = function(){
 		if ($scope.selectedEstacion != 'TODAS'){
 			$scope.selectLinea = 'TODAS';
@@ -19,12 +17,27 @@ angular.module('initApp')
 			$scope.selectedEstacion = 'TODAS';
 		}
 		$scope.serve =  $scope.getFilteredData();
-		$scope.primerosTres = $scope.serve.reverse().slice(0,3);
-		$scope.ultimosTres = $scope.serve.reverse().slice(0,3);
+		
+    $scope.primerosTres = angular.copy($scope.serve)
+                  .sort(function(a,b){
+                    return -a.valor + b.valor;
+                  }).slice(0,3);
+		$scope.ultimosTres = angular.copy($scope.serve)
+                  .sort(function(a,b){
+                    return +a.valor - b.valor;
+                  }).slice(0,3);
     if (!$scope.labels){
+      
+      var meterColor = d3.scale.linear().domain([0,$scope.serve.length])
+                .range([d3.rgb("#dcdcdc"), d3.rgb("#9c0c15")]);
+
 		  $scope.labels = $scope.serve.map(function(t){
-			  return t.categoria;
+			  return toTitleCase(t.categoria);
 		  });
+      $scope.colors = $scope.serve.map(function(t,i){
+        return meterColor(i);
+      });
+
     }
 		$scope.data = $scope.serve.map(function(t){
 			return t.valor;
@@ -63,9 +76,7 @@ angular.module('initApp')
   					}).length
   				}
   			})
-    //   	.sort(function(a,b){
-  		// 	return a.valor - b.valor;
-  		// });
+
     };
  	
   

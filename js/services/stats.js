@@ -106,7 +106,7 @@ angular.module('initApp').factory('statsService', function($http, $filter) {
 			        	var subtecolor = d3.rgb(color.r,color.g, color.b);
 
 			        	y.color = d3.scale.linear().domain([min,max])
-					      .range([subtecolor.brighter(), subtecolor.darker()]);
+					      .range([subtecolor, subtecolor.darker().darker()]);
 		        		y.months.map(function(m){
 			        		m.temas = d3.nest()
 			        			.key(function(d) {

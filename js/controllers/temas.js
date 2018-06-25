@@ -11,11 +11,16 @@ angular.module('initApp')
 			$scope.selectedEstacion = 'TODAS';
 		}
 		$scope.serve =  $scope.getFilteredData();
+    $scope.all = 0;
+    $scope.serve.map(function(d){
+      $scope.all += d.valor;
+    });
 		$scope.primerosTres = $scope.serve.reverse().slice(0,3);
 		$scope.ultimosTres = $scope.serve.reverse().slice(0,3);
 		$scope.labels = $scope.serve.map(function(t){
-			return t.categoria;
+			return toTitleCase(t.categoria);
 		});
+
 		$scope.data = $scope.serve.map(function(t){
 			return t.valor;
 		})
@@ -35,6 +40,7 @@ angular.module('initApp')
 
     $scope.$watch('currentMapEstacion', $scope.setCurrentTooltipEstacion);
 
+
     $scope.getFilteredEstacion = function(){
       $scope.currentMove = statsService.reclamosTema
       	.map(function(t,i){
@@ -45,17 +51,19 @@ angular.module('initApp')
   						var filterYear = true;
   						var filterLinea = true;
   						var filterEstacion = true; 
-  						
+  						var filterTema = true;
   						if (!isNaN(parseInt($scope.selectedYear))){
   							filterYear = parseInt(i["Año"]) == $scope.selectedYear;
   						}
-  						
+  						if ($scope.selectedTema != "TODOS"){
+                filterTema = i["Tema"].toLowerCase().trim()  == $scope.selectedTema;
+              }
 							filterEstacion = i["Estación"].toUpperCase().trim()  ==  $scope.currentMapEstacion.estacion;
 							filterLinea = true;
   					
 
 
-  						return filterYear && filterLinea && filterEstacion;
+  						return filterYear && filterLinea && filterEstacion && filterTema;
   					}).length
   				}
   			})
@@ -74,17 +82,19 @@ angular.module('initApp')
   						var filterYear = true;
   						var filterLinea = true;
   						var filterEstacion = true; 
-  						
+  					 var filterTema = true;
   						if (!isNaN(parseInt($scope.selectedYear))){
   							filterYear = parseInt(i["Año"]) == $scope.selectedYear;
   						}
-
+              if ($scope.selectedTema != "TODOS"){
+                filterTema = i["Tema"].toLowerCase().trim()  == $scope.selectedTema;
+              }
   						if ($scope.selectedLinea != "TODAS"){
   							filterLinea = i["Línea"] == $scope.selectedLinea;
   							filterEstacion = true;
   						}
   					
-  						return filterYear && filterLinea && filterEstacion;
+  						return filterYear && filterLinea && filterEstacion && filterTema;
   					}).length
   				}
   			})
@@ -101,6 +111,10 @@ angular.module('initApp')
     	$scope.selectLineaOptions = ['TODAS'].concat(statsService.lineas.map(function(m){
     		return m.key;
     	}).sort());
+      $scope.selectedTema = "TODOS"
+      $scope.selectTemaOptions = ['TODOS'].concat(statsService.reclamosTema.map(function(t){
+        return(t.key);
+      }).sort());
     	$scope.selectedEstacion = 'TODAS';
     	$scope.selectEstacionOption = ['TODAS'].concat(statsService.estaciones.map(function(m){
     		return m.key;
