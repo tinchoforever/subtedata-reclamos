@@ -307,3 +307,7 @@ input[type=range]:focus::-ms-fill-upper {
 .row{
   width: 100%;
 }
+
+h3{
+  font-size: 1.15em;
+}

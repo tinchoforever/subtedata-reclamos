@@ -2,7 +2,9 @@
 angular.module('initApp')
   .controller('estacionesController', function ($scope, $rootScope,$timeout, $location, statsService) {
 
-
+    $scope.getMonthName = function(i){
+      return window.nombresMesesCorto[i-1];
+    };
 	$scope.changeOption = function(){
 		
 		

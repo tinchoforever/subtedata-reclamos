@@ -351,3 +351,11 @@ h3.article.button.button-primary{
     padding: 0.5em;
     
 }
+
+.meses h3{
+  font-size: 1.15em;
+}
+
+.meses h3.linea-mes {
+    text-align: center;
+}
