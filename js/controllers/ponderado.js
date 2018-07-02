@@ -10,12 +10,20 @@ angular.module('initApp')
 
   
 	$scope.changeOption = function(){
-		if ($scope.selectedEstacion != 'TODAS'){
-			$scope.selectLinea = 'TODAS';
+		if ($scope.selectedLinea != 'TODAS'){
+      $scope.selectEstacionOption = ['TODAS'].concat(
+        statsService.estaciones.filter(function(m){
+          return m.values[0]["Línea"].toLowerCase()  === $scope.selectedLinea.toLowerCase();
+        }).map(function(m){
+          return m.key;
+      }).sort());
 		}
-		else if ($scope.selectLinea != 'TODAS'){
-			$scope.selectedEstacion = 'TODAS';
-		}
+    else {
+      $scope.selectEstacionOption = ['TODAS'].concat(statsService.estaciones.map(function(m){
+        return m.key;
+      }).sort());
+    }
+
 		$scope.serve =  $scope.getFilteredData();
 		
     $scope.primerosTres = angular.copy($scope.serve)
@@ -62,20 +70,23 @@ angular.module('initApp')
   							filterYear = parseInt(i["Año"]) == $scope.selectedYear;
   						}
 
-  						if ($scope.selectedLinea != "TODAS"){
-  							filterLinea = i["Línea"] == $scope.selectedLinea;
-  							filterEstacion = true;
-  						}
-  						else if ($scope.selectedEstacion != "TODAS"){
+  						
+  					  if ($scope.selectedEstacion != "TODAS"){
   							filterEstacion = i["Estación"].toLowerCase().trim()  == $scope.selectedEstacion;
   							filterLinea = true;
   						}
+              else if ($scope.selectedLinea != "TODAS"){
+                filterLinea = i["Línea"] == $scope.selectedLinea;
+                filterEstacion = true;
+              }
 
 
   						return filterYear && filterLinea && filterEstacion;
   					}).length
   				}
-  			})
+  			}).sort(function(a,b){
+          return d3.ascending(a.categoria,b.categoria);
+        });
 
     };
  	

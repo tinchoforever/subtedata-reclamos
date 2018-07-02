@@ -1,5 +1,5 @@
 <div class="container">
-	<h4> Mira los temas que fueron mas reclamados durante <p>
+	<h4> Mirá cómo se distribuyeron los temas por los que reclamaron los usuarios durante:<p>
 	Año:<select name="options" ng-change="changeOption()" id="options" ng-model="selectedYear" ng-options="opt for opt in selectOptions">
 </select>
 	Línea:<select name="options" ng-change="changeOption()" id="lineas" ng-model="selectedLinea" ng-options="opt for opt in selectLineaOptions">
@@ -8,10 +8,10 @@
 	</select>
 </p> </h4>
 
-	<p> Por lo que podemos observar 
+	<p> Por lo que podemos observar
 		
 			<span ng-show="selectedYear == 'TODOS'"> de <strong> 2014 a 2017 </strong> </span>
-			<span ng-hide="selectedYear == 'TODOS'"> durante el año <strong> {{selectedYear}} </strong> </span> 
+			<span ng-hide="selectedYear == 'TODOS'"> en <strong> {{selectedYear}} </strong> </span> 
 			<span ng-hide="selectedEstacion != 'TODAS'">
 				<span ng-show="selectedLinea =='TODAS' && selectedLinea !='Sin especificar'"> <strong> en toda </strong> la red de subterrraneos de Buenos Aires </span>
 				<span ng-show="selectedLinea !='TODAS' && selectedLinea !='Sin especificar'"> en toda la linea <strong> {{selectedLinea}}</strong> </span>

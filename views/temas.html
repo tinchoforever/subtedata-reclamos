@@ -1,14 +1,14 @@
-<div class="container">
+
            
 <div class="container">
-	<h4> Mira los temas que fueron mas reclamados durante <p>
+	<p> Mira los temas que fueron mas reclamados durante <br/>
 	Año:<select name="options" ng-change="changeOption()" id="options" ng-model="selectedYear" ng-options="opt for opt in selectOptions">
 </select>
 	Línea:<select name="options" ng-change="changeOption()" id="lineas" ng-model="selectedLinea" ng-options="opt for opt in selectLineaOptions">
 	</select>
 		Temas:<select name="options" ng-change="changeOption()" id="temas" ng-model="selectedTema" ng-options="opt for opt in selectTemaOptions">
 	</select>
-</p> </h4>
+</p>
 <p> Por lo que podemos observar 
 			<span ng-show="selectedYear == 'TODOS'"> de <strong> 2014 a 2017 </strong> </span>
 			<span ng-hide="selectedYear == 'TODOS'"> durante el año <strong> {{selectedYear}} </strong> </span> 
@@ -22,17 +22,22 @@
 				</span>
 			
 </div>
-
-
-				<subte-chart
-		container="'subte'"
-		lines="serve"
-	></subte-chart>
-
-
+<div class="container">
+	<div ng-hide="currentMapEstacion">
+<h4> Elegi una estación en el mapa para poder ver los temas mas reclamados en cada estación.</h4> 
+			<p><strong> - </strong></p>
+			<p><strong> - </strong></p>
+		</div>
 <div ng-show="currentMapEstacion">
 <h4> En {{currentMapEstacion.estacion}} {{currentMapEstacion.linea}} hubieron  {{currentMapEstacion.valor}} reclamos, donde los mas importantes fueron </h4> 
 <span ng-repeat="r in currentMove.slice(0,4)">
 				<strong> {{r.categoria}} </strong> unas  <strong> {{r.valor}} </strong> veces,
 			</span> 
 		</div>
+</div>
+
+				<subte-chart
+		container="'subte'"
+		lines="serve"
+	></subte-chart>
+
