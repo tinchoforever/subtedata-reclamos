@@ -65,10 +65,15 @@ angular.module('initApp')
   						var filterYear = true;
   						var filterLinea = true;
   						var filterEstacion = true; 
+              var filterMonth = true; 
   						
   						if (!isNaN(parseInt($scope.selectedYear))){
   							filterYear = parseInt(i["Año"]) == $scope.selectedYear;
   						}
+              var mes = window.nombresMeses.indexOf($scope.selectedMes);
+              if (mes != -1){
+               filterMonth = parseInt(i["Mes"]) == (mes+1); 
+              }
 
   						
   					  if ($scope.selectedEstacion != "TODAS"){
@@ -81,7 +86,7 @@ angular.module('initApp')
               }
 
 
-  						return filterYear && filterLinea && filterEstacion;
+  						return filterYear && filterLinea && filterEstacion && filterMonth;
   					}).length
   				}
   			}).sort(function(a,b){
@@ -101,6 +106,8 @@ angular.module('initApp')
     	$scope.selectLineaOptions = ['TODAS'].concat(statsService.lineas.map(function(m){
     		return m.key;
     	}).sort());
+      $scope.selectedMes = 'TODOS';
+      $scope.selectMesOption = ['TODOS'].concat(window.nombresMeses);
     	$scope.selectedEstacion = 'TODAS';
     	$scope.selectEstacionOption = ['TODAS'].concat(statsService.estaciones.map(function(m){
     		return m.key;
