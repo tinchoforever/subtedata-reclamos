@@ -14,7 +14,7 @@
 				</div>
 		</div>
 		<div class="col-xs-1" ng-repeat="linea in stats.lineas">
-			<h3 class="linea-mes">{{linea.key[0]}}</h3>
+			<h3 class="linea-mes color-{{linea.key}}" style="background-color: {{ setColorFor(linea,12) }};">{{linea.key[0]}}</h3>
 			<div class="" ng-repeat="mes in stats.lineas[0].years[0].months">
 				<div class="row linea-mes color-{{linea.key}} " style="background-color: {{ setColorFor(linea,mes) }};" >
 					<h3> <a href="" ng-click="showDetail(linea,mes)" > {{ getValueFor(linea,mes) }} </a> </h3>
@@ -27,22 +27,38 @@
  </div>
 <div class="container meses">
 	<div class="row" ng-show="detailOn">
-		<a href="" ng-click="closeDetail()"> Volver a Grilla </a>
-
-		<h3> Linea {{selectedLinea.key}} en  {{getMonthName(mes.key)}} {{selectedYear.year}} <strong> {{selectedMonth.values.length}} <small> reclamos </small> </strong> </h4>
+		<div class="col-md-12 right">
+			<a href="" ng-click="closeDetail()"> Volver a Grilla </a>
+		</div>
+		<div class="col-xs-12">
+		<h3 class="color-{{selectedLinea.key}}"> En Linea {{selectedLinea.key}} en  {{getMonthName(mes.key)}} {{selectedYear.year}} <strong> {{selectedMonth.values.length}}</strong> <small> reclamos </small> y los mas reclamados fueron: </strong> </h3>
+		</div>
+		<div class="col-xs-12">
 		<div ng-repeat="temas in selectedMonth.temas.slice(0,3)" >
 	    	<div class="row">
+	    		<div class="col-xs-1">
+	    			<h5 class="color-{{selectedLinea.key}}"> <strong>{{temas.values.length}}</strong> </h5>
+	    		</div>
+	    		<div class="col-xs-8">
+	    			<h5 class="color-{{selectedLinea.key}}"> {{temas.key}}</h5>
+	    		</div>
+	    	</div>
+	    	<div class="row">
 	    		<div class="col-md-8">
-	    			<h5> <strong>{{temas.key}}</strong></h5>
-	    		</div>
-	    		<div class="col-md-4">
-	    			<h5>{{temas.values.length}} <small> {{temas.values.length* 100 / selectedMonth.values.length}} % </small></h5>
-	    		</div>
+	    		<div class="progress">
+                  <div class="progress-bar bg-color-{{selectedLinea.key}}"
+                     role="progressbar"
+                     ng-style="{ 'width': (temas.values.length* 100 / selectedMonth.values.length) + '%' }">
+                     <span class="progressbar-w"><small>{{(temas.values.length* 100 / selectedMonth.values.length) | number:2}}%</small> </span>
+                  </div>
+               </div>
+           		</div>
+	    	</div>
 	    	</div>
     	</div>
     	<div class="col-xs-8">
-    		<canvas  id="mainChart"  class="chart chart-line" chart-data="data" chart-labels="labels"
-                      chart-series="series" chart-options="options"></canvas>
+    		<canvas  id="mainChart"  class="chart chart-line" chart-colors="colors" chart-data="data" chart-labels="labels"
+                      chart-series="series"></canvas>
 
     	</div>
     </div>

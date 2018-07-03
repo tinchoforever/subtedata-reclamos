@@ -10,8 +10,8 @@ angular.module('initApp')
 		
 
     };
-      $scope.series = ['Meses'];
-       $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }];
+    $scope.series = ['Meses'];
+    $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }];
   	$scope.options = {
   		maintainAspectRatio: true,
     	scales: {
@@ -77,13 +77,14 @@ angular.module('initApp')
 	 		};
  		}
    	if (!$scope.labels){
-   		$scope.labels = linea.years[$scope.selectedYear.opts].months.map(function(t){
-			return t.key;
-		});
+     		$scope.labels = nombresMesesCorto;
    	}
 		$scope.data = linea.years[$scope.selectedYear.opts].months.map(function(t){
 				return t.values.length;
 		});
+    var color = statsService.subteColors[linea.key];
+    var c = d3.rgb(color.r,color.g, color.b);
+    $scope.colors = [c.toString()];
    };
    $scope.closeDetail= function(){
    	$scope.detailOn = false;

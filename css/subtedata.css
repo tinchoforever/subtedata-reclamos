@@ -358,4 +358,49 @@ h3.article.button.button-primary{
 
 .meses h3.linea-mes {
     text-align: center;
+    font-weight: 900;
+}
+
+.color-A{
+  color:rgb(0, 174, 219);
+} 
+.color-B{  
+  color:rgb(238, 27, 46);
+}
+.color-C{  
+  color:rgb(1, 103, 178);
+}
+.color-D{  
+  color:rgb(0, 128, 103);
+}
+.color-E{  
+  color:rgb(108, 33, 128);
+}
+.color-H{  
+  color:rgb(255, 210, 3);
+}
+.bg-color-A{
+  background-color:rgb(0, 174, 219);
+} 
+.bg-color-B{  
+  background-color:rgb(238, 27, 46);
+}
+.bg-color-C{  
+  background-color:rgb(1, 103, 178);
+}
+.bg-color-D{  
+  background-color:rgb(0, 128, 103);
+}
+.bg-color-E{  
+  background-color:rgb(108, 33, 128);
+}
+.bg-color-H{  
+  background-color:rgb(255, 210, 3);
+}
+.progress-bar{
+    width:0%;
+     -webkit-transition: width 1s ease-in-out;
+    -moz-transition: width 1s ease-in-out;
+    -o-transition: width 1s ease-in-out;
+    transition: width 1s ease-in-out;
 }
