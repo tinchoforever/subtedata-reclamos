@@ -15,7 +15,7 @@ Mes:	 <select name="options" ng-change="changeOption()" id="options" ng-model="s
 			<span ng-show="selectedYear == 'TODOS'"> de <strong> 2014 a 2017 </strong> </span>
 			<span ng-hide="selectedYear == 'TODOS' && selectedMes == 'TODOS'"> en <strong><span ng-hide="selectedMes == 'TODOS'"> {{selectedMes}} </span></strong><strong  ng-hide="selectedYear == 'TODOS'"> {{selectedYear}} </strong> </span> 
 			<span ng-hide="selectedEstacion != 'TODAS'">
-				<span ng-show="selectedLinea =='TODAS' && selectedLinea !='Sin especificar'"> <strong> en toda </strong> la red de subterrraneos de Buenos Aires </span>
+				<span ng-show="selectedLinea =='TODAS' && selectedLinea !='Sin especificar'"> <strong> en toda </strong> la <strong>red de subterraneos de Buenos Aires</strong> </span>
 				<span ng-show="selectedLinea !='TODAS' && selectedLinea !='Sin especificar'"> en toda la linea <strong> {{selectedLinea}}</strong> </span>
 
 				los usuarios reclamaron <span ng-show="selectedLinea =='Sin especificar'">  <strong> sin especificar una estación </strong></span> por 
