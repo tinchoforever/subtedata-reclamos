@@ -80,7 +80,7 @@ var reRender = function(renderId){
 }
   
 
-  var margin = {top: 50, right: 20, bottom: 25, left: 30},
+  var margin = {top: 50, right: 20, bottom: 30  , left: 30},
       width = $('.viz').width() - margin.left - margin.right,
       height = 530 - margin.top - margin.bottom,
       lineHeight = height-50;
@@ -326,7 +326,6 @@ var reRender = function(renderId){
       
 
       
-      
 
       
       //prepareStream
@@ -372,15 +371,27 @@ var reRender = function(renderId){
     function highlightLine(linea){
       //filterLine
       clearMapToolTip();
-      var baseR = 2;
+      
           
             selectedEstaciones = mainDataset;
 
 
-           
-          var scale = 5;
-          d3.select("#escalaNumber").text("25.000");
+          var baseR = 1;
+          var scale = 1.8;
+          d3.select("#escalaNumber").text("100 reclamos");
 
+          
+          if ($('#optionsYear').val().indexOf('TODOS') > -1){
+            baseR = 2;
+            scale = 10; //100
+             d3.select("#escalaNumber").text("500 reclamos");
+          }
+          
+          if ($('#temas').val().indexOf('TODOS') == -1){
+            baseR = 1;
+            scale = 0.5; //100
+            d3.select("#escalaNumber").text("25 reclamos"); 
+          }
 
           //Tengo estaciones, ahora necesito claves.
           var selectedCircles =d3.selectAll("#" + renderId + " svg .linea circle");

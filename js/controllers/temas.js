@@ -52,9 +52,15 @@ angular.module('initApp')
   						var filterLinea = true;
   						var filterEstacion = true; 
   						var filterTema = true;
-  						if (!isNaN(parseInt($scope.selectedYear))){
-  							filterYear = parseInt(i["Año"]) == $scope.selectedYear;
-  						}
+  						var filterMonth = true; 
+              
+              if (!isNaN(parseInt($scope.selectedYear))){
+                filterYear = parseInt(i["Año"]) == $scope.selectedYear;
+              }
+              var mes = window.nombresMeses.indexOf($scope.selectedMes);
+              if (mes != -1){
+               filterMonth = parseInt(i["Mes"]) == (mes+1); 
+              }
   						if ($scope.selectedTema != "TODOS"){
                 filterTema = i["Tema"].toLowerCase().trim()  == $scope.selectedTema;
               }
@@ -63,7 +69,7 @@ angular.module('initApp')
   					
 
 
-  						return filterYear && filterLinea && filterEstacion && filterTema;
+  						return filterYear && filterLinea && filterEstacion && filterTema && filterMonth;
   					}).length
   				}
   			})
@@ -82,10 +88,15 @@ angular.module('initApp')
   						var filterYear = true;
   						var filterLinea = true;
   						var filterEstacion = true; 
-  					 var filterTema = true;
-  						if (!isNaN(parseInt($scope.selectedYear))){
-  							filterYear = parseInt(i["Año"]) == $scope.selectedYear;
-  						}
+  					   var filterTema = true;
+               var filterMonth = true;
+                if (!isNaN(parseInt($scope.selectedYear))){
+                filterYear = parseInt(i["Año"]) == $scope.selectedYear;
+              }
+              var mes = window.nombresMeses.indexOf($scope.selectedMes);
+              if (mes != -1){
+               filterMonth = parseInt(i["Mes"]) == (mes+1); 
+              }
               if ($scope.selectedTema != "TODOS"){
                 filterTema = i["Tema"].toLowerCase().trim()  == $scope.selectedTema;
               }
@@ -94,7 +105,7 @@ angular.module('initApp')
   							filterEstacion = true;
   						}
   					
-  						return filterYear && filterLinea && filterEstacion && filterTema;
+  						return filterYear && filterLinea && filterEstacion && filterTema && filterMonth;
   					}).length
   				}
   			})
@@ -105,6 +116,9 @@ angular.module('initApp')
   statsService.loadAll(function(){
   	$scope.$apply(function(){
   		$scope.reclamos =statsService;
+      $scope.selectedMes = 'TODOS';
+      $scope.selectMesOption = ['TODOS'].concat(window.nombresMeses);
+      
   		$scope.selectedYear = 'TODOS';
     	$scope.selectOptions = [$scope.selectedYear].concat(statsService.years);
     	$scope.selectedLinea = 'TODAS';

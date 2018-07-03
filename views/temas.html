@@ -2,8 +2,10 @@
            
 <div class="container">
 	<p> Mira los temas que fueron mas reclamados durante <br/>
-	Año:<select name="options" ng-change="changeOption()" id="options" ng-model="selectedYear" ng-options="opt for opt in selectOptions">
+	Año:<select name="options" ng-change="changeOption()" id="optionsYear" ng-model="selectedYear" ng-options="opt for opt in selectOptions">
 </select>
+	Mes:<select name="options" ng-change="changeOption()" id="optionsMes" ng-model="selectedMes" ng-options="opt for opt in selectMesOption">
+	</select>
 	Línea:<select name="options" ng-change="changeOption()" id="lineas" ng-model="selectedLinea" ng-options="opt for opt in selectLineaOptions">
 	</select>
 		Temas:<select name="options" ng-change="changeOption()" id="temas" ng-model="selectedTema" ng-options="opt for opt in selectTemaOptions">
@@ -24,12 +26,12 @@
 </div>
 <div class="container">
 	<div ng-hide="currentMapEstacion">
-<h4> Elegi una estación en el mapa para poder ver los temas mas reclamados en cada estación.</h4> 
+<h5> Elegi una estación en el mapa para poder ver los temas mas reclamados en cada estación.</h5> 
 			<p><strong> - </strong></p>
 			<p><strong> - </strong></p>
 		</div>
 <div ng-show="currentMapEstacion">
-<h4> En {{currentMapEstacion.estacion}} {{currentMapEstacion.linea}} hubieron  {{currentMapEstacion.valor}} reclamos, donde los mas importantes fueron </h4> 
+<h5> En <strong>{{currentMapEstacion.estacion}} {{currentMapEstacion.linea}} </strong> hubieron  {{currentMapEstacion.valor}} reclamos, donde los mas importantes fueron </h5> 
 <span ng-repeat="r in currentMove.slice(0,4)">
 				<strong> {{r.categoria}} </strong> unas  <strong> {{r.valor}} </strong> veces,
 			</span> 
