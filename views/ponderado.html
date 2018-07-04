@@ -10,26 +10,29 @@ Mes:	 <select name="options" ng-change="changeOption()" id="options" ng-model="s
 	</select>
 </p> </h4>
 	
-	<p> Por lo que podemos observar
+	<p> 
 		
-			<span ng-show="selectedYear == 'TODOS'"> de <strong> 2014 a 2017 </strong> </span>
-			<span ng-hide="selectedYear == 'TODOS' && selectedMes == 'TODOS'"> en <strong><span ng-hide="selectedMes == 'TODOS'"> {{selectedMes}} </span></strong><strong  ng-hide="selectedYear == 'TODOS'"> {{selectedYear}} </strong> </span> 
-			<span ng-hide="selectedEstacion != 'TODAS'">
-				<span ng-show="selectedLinea =='TODAS' && selectedLinea !='Sin especificar'">en toda la <strong>red de subterraneos de Buenos Aires</strong> </span>
-				<span ng-show="selectedLinea !='TODAS' && selectedLinea !='Sin especificar'"> en toda la linea <strong> {{selectedLinea}}</strong> </span>
-
-				los usuarios reclamaron <span ng-show="selectedLinea =='Sin especificar'">  <strong> sin especificar una estación </strong></span> por 
-			</span>
-			<span ng-show="selectedEstacion != 'TODAS'">
-				en la estación <strong>{{selectedEstacion}} </strong>los usuarios del subte reclamaron por 
-			</span>
+			<span ng-show="selectedYear == 'TODOS'"> En<strong>  2014 a 2017 </strong> </span>
+			<span ng-hide="selectedYear == 'TODOS' && selectedMes == 'TODOS'"> En <strong><span ng-hide="selectedMes == 'TODOS'"> {{selectedMes}} </span></strong><strong  ng-hide="selectedYear == 'TODOS'"> {{selectedYear}} </strong> </span> 
+			se realizaron <strong> {{all}} </strong> reclamos,
 			<span ng-repeat="r in primerosTres">
 				<strong> {{r.categoria}} </strong> unas  <strong> {{r.valor}} </strong> veces,
-			</span> y lo menores reclamos fueron 
+			</span> 
+			<span ng-hide="selectedEstacion != 'TODAS'">
+
+				<span ng-show="selectedLinea =='TODAS' && selectedLinea !='Sin especificar'">en la <strong>red de Subte</strong> </span>
+				<span ng-show="selectedLinea !='TODAS' && selectedLinea !='Sin especificar'"> en la linea <strong> {{selectedLinea}}</strong> </span>
+				<span ng-show="selectedLinea =='Sin especificar'">  <strong> sin especificar una estación </strong></span> 
+			</span>
+			<span ng-show="selectedEstacion != 'TODAS'">en la estación <strong>{{selectedEstacion}}</strong>. </span>
+			 Los reclamos menos frecuentes fueron 
 			<span ng-repeat="z in ultimosTres">
 				<strong> {{z.categoria}}</strong> <strong> {{z.valor}}    </strong> veces
 			</span>
-    <canvas id="bar" class="chart  chart-horizontal-bar" chart-colors="colors" chart-data="data" chart-labels="labels"
+
+
+
+			<canvas id="bar" class="chart  chart-horizontal-bar" chart-colors="colors" chart-data="data" chart-labels="labels"
                       chart-series="series" chart-options="options"></canvas>
 	<div  id="chart">
 	</div>

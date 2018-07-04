@@ -34,6 +34,10 @@ angular.module('initApp')
                   .sort(function(a,b){
                     return +a.valor - b.valor;
                   }).slice(0,3);
+    $scope.all = 0;
+    $scope.serve.map(function(d){
+      $scope.all += d.valor;
+    });
     if (!$scope.labels){
       
       var meterColor = d3.scale.linear().domain([0,$scope.serve.length])

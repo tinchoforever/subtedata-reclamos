@@ -11,17 +11,20 @@
 		Temas:	<select name="options" ng-change="changeOption()" id="temas" ng-model="selectedTema" ng-options="opt for opt in selectTemaOptions">
 	</select>
 </p>
-<p> Por lo que podemos observar 
-			<span ng-show="selectedYear == 'TODOS'"> de <strong> 2014 a 2017 </strong> </span>
-			<span ng-hide="selectedYear == 'TODOS'"> durante el año <strong> {{selectedYear}} </strong> </span> 
+
+<p> En
+			<span ng-show="selectedYear == 'TODOS'"> <strong> 2014 a 2017 </strong> </span>
+			<span ng-hide="selectedYear == 'TODOS'"> <strong> {{selectedYear}} </strong> </span> 
+			se realizaron <strong> {{all}} </strong> reclamos 
 			<span ng-hide="selectedEstacion != 'TODAS'">
-				<span ng-show="selectedLinea =='TODAS'"> <strong> en toda </strong> la <strong>red de subterraneos de Buenos Aires </strong> </span>
-				<span ng-show="selectedLinea !='TODAS'"> en toda la linea <strong> {{selectedLinea}}</strong> </span>
-				en la estación <strong>{{selectedEstacion}} </strong>los usuarios del subte reclamaron <strong> {{all}} </strong> veces <span ng-show="selectedTema != 'TODOS'"> por {{selectedTema}}</span> donde la estaciones mas importantes son
-			
+				<span ng-show="selectedLinea =='TODAS'"> <strong> en toda </strong> la <strong>red de Subte </strong> </span>
+				<span ng-show="selectedLinea !='TODAS'"> en toda la línea <strong> {{selectedLinea}}</strong> </span>
+			</span>
+				<span ng-show="selectedEstacion != 'TODAS'">en la estación <strong>{{selectedEstacion}}</strong> </span>
+				<span ng-show="selectedTema != 'TODOS'"> por <strong>{{selectedTema}} </strong></span> siendo las estaciones más reclamadas 
 				<span ng-repeat="r in primerosTres">
-					<strong> {{r.categoria}} </strong> unas  <strong> {{r.valor}} </strong> veces,
-				</span>
+					<strong> {{r.categoria}} </strong> con  <strong> {{r.valor}} reclamos </strong>,
+				</span>.
 			
 </div>
 <div class="container">
@@ -31,7 +34,8 @@
 			<p><strong> - </strong></p>
 		</div>
 <div ng-show="currentMapEstacion">
-<h5> En <strong>{{currentMapEstacion.estacion}} {{currentMapEstacion.linea}} </strong> hubieron  {{currentMapEstacion.valor}} reclamos, donde los mas importantes fueron </h5> 
+
+<h5> En <strong>{{currentMapEstacion.estacion}} {{currentMapEstacion.linea}} </strong> se realizaron  {{currentMapEstacion.valor}} reclamos, en los cuales los usuarios reclamaron </h5> 
 <span ng-repeat="r in currentMove.slice(0,4)">
 				<strong> {{r.categoria}} </strong> unas  <strong> {{r.valor}} </strong> veces,
 			</span> 
