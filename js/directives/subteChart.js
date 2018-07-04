@@ -375,23 +375,23 @@ var reRender = function(renderId){
           
             selectedEstaciones = mainDataset;
 
-
+             var max = Math.max.apply(Math, selectedEstaciones.map(function(d){return d.price+0;}));
+            var min = Math.min.apply(Math, selectedEstaciones.map(function(d){return d.price+0;}));
           var baseR = 1;
           var scale = 1.8;
           d3.select("#escalaNumber").text("100 reclamos");
 
           
-          if ($('#optionsYear').val().indexOf('TODOS') > -1){
-            baseR = 2;
-            scale = 10; //100
-             d3.select("#escalaNumber").text("500 reclamos");
-          }
           
-          if ($('#temas').val().indexOf('TODOS') == -1){
+          
+            
             baseR = 1;
-            scale = 0.5; //100
-            d3.select("#escalaNumber").text("25 reclamos"); 
-          }
+     
+            var maximoEscale = Math.floor(max/3);
+            var scaleCircle = d3.scale.linear().domain([min,max])
+                .range([0, 150]);
+            d3.select("#escalaNumber").text(maximoEscale +  " reclamos"); 
+          
 
           //Tengo estaciones, ahora necesito claves.
           var selectedCircles =d3.selectAll("#" + renderId + " svg .linea circle");
@@ -406,6 +406,7 @@ var reRender = function(renderId){
           .attr('r', function(d){
           return baseR;
         });
+
         selectedCircles
           .transition()
           .duration(300)
@@ -420,14 +421,9 @@ var reRender = function(renderId){
                 return result ;
               });  
                if (currentValue.length > 0){ 
-                // if(nombreEstacion[0].ESTACION == "PASCO"){
-                //     var valorAlberti = selectedEstaciones.filter(function(d) { return d.estacion =="ALBERTI"});
-                //     return (valorAlberti[0].value + currentValue[0].value)*10/scale;
-                // } else{
-                  return (currentValue[0].price+0)/scale;
-                
+       
+                  return scaleCircle(currentValue[0].price+0);
 
-                
               }
               else {
                 return baseR*2;  
