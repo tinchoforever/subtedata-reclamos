@@ -96,6 +96,16 @@ angular.module('initApp').factory('statsService', function($http, $filter) {
 
 			        		})
 			        		.entries(y.values);
+			        if (l.key === "P" && l.years.length < 4){
+			        	var year2014 = {
+			        		key:"2014",
+			        		values: [],
+			        		months: []
+			        	};
+			        	var y1 = [];
+			        	y1.push(year2014)
+			        	l.years = y1.concat(l.years);
+			        }
 			        	//temas 
 			        	var min = Math.min.apply(Math, y.months.map(function(d){return d.values.length;}))
 			        	var max = Math.max.apply(Math, y.months.map(function(d){return d.values.length;}))
