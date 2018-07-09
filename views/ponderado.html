@@ -1,42 +1,75 @@
 <div class="container">
-	<h4> Mirá cómo se distribuyeron los temas por los que reclamaron los usuarios durante:<p>
-	Año:	<select name="options" ng-change="changeOption()" id="options" ng-model="selectedYear" ng-options="opt for opt in selectOptions">
-</select>
-Mes:	 <select name="options" ng-change="changeOption()" id="options" ng-model="selectedMes" ng-options="opt for opt in selectMesOption">
-</select>
-	Línea:	<select name="options" ng-change="changeOption()" id="lineas" ng-model="selectedLinea" ng-options="opt for opt in selectLineaOptions">
+	<h4> Mirá cómo se distribuyeron los temas por los que reclamaron los usuarios durante:</h4>
+	<div class="row">
+				<div class="col-xs-12 col-md-3">
+			Año:	<select name="options" ng-change="changeOption()" id="options" ng-model="selectedYear" ng-options="opt for opt in selectOptions"></select>
+		</div>
+				<div class="col-xs-12 col-md-3">
+			Mes:	 <select name="options" ng-change="changeOption()" id="options" ng-model="selectedMes" ng-options="opt for opt in selectMesOption"></select>
+		</div>
+				<div class="col-xs-12 col-md-3">
+			Línea:	<select name="options" ng-change="changeOption()" id="lineas" ng-model="selectedLinea" ng-options="opt for opt in selectLineaOptions">
 	</select>
-	Estación:	<select name="options" ng-change="changeOption()" id="estaciones" ng-model="selectedEstacion" ng-options="opt for opt in selectEstacionOption">
+		</div>
+				<div class="col-xs-12 col-md-3">
+				Estación:	<select name="options" ng-change="changeOption()" id="estaciones" ng-model="selectedEstacion" ng-options="opt for opt in selectEstacionOption">
 	</select>
-</p> </h4>
-	
+		</div>
+	</div>
+
+	<hr/>
 	<p> 
 		
 			<span ng-show="selectedYear == 'TODOS'"> En<strong>  2014 a 2017 </strong> </span>
 			<span ng-hide="selectedYear == 'TODOS' && selectedMes == 'TODOS'"> En <strong><span ng-hide="selectedMes == 'TODOS'"> {{selectedMes}} </span></strong><strong  ng-hide="selectedYear == 'TODOS'"> {{selectedYear}} </strong> </span> 
-			se realizaron <strong> {{all}} </strong> reclamos,
+			se realizaron <strong> {{all}} </strong> reclamos de los cuales fueron
 			<span ng-repeat="r in primerosTres">
-				<strong> {{r.categoria}} </strong> unas  <strong> {{r.valor}} </strong> veces,
+				<strong>  {{r.valor}} </strong>  por <strong> {{r.categoria}}  </strong>,
 			</span> 
 			<span ng-hide="selectedEstacion != 'TODAS'">
 
-				<span ng-show="selectedLinea =='TODAS' && selectedLinea !='Sin especificar'">en la <strong>red de Subte</strong> </span>
+				<span ng-show="selectedLinea =='TODAS' && selectedLinea !='Sin especificar'">en toda la <strong>red de Subte</strong> </span>
 				<span ng-show="selectedLinea !='TODAS' && selectedLinea !='Sin especificar'"> en la linea <strong> {{selectedLinea}}</strong> </span>
 				<span ng-show="selectedLinea =='Sin especificar'">  <strong> sin especificar una estación </strong></span> 
 			</span>
 			<span ng-show="selectedEstacion != 'TODAS'">en la estación <strong>{{selectedEstacion}}</strong>. </span>
 			 Los reclamos menos frecuentes fueron 
 			<span ng-repeat="z in ultimosTres">
-				<strong> {{z.categoria}}</strong> <strong> {{z.valor}}    </strong> veces
-			</span>
-
-
+				<strong> {{z.valor}}  </strong> por <strong>   {{z.categoria}}</strong>,  
+			</span>.
+		</p>
+<hr/>
+			<div class="row">
+				<div class="inner-detail">
+					<div class="" ng-repeat="d in ordered">
+						<div class="col-xs-7">
+							<h5>{{d.categoria}}</h5>
+						</div>
+						<div class="col-xs-3">
+							<h4>  {{d.percentage}}% </h4>
+						</div>
+						<div class="col-xs-1">
+							<h4>  <small> {{d.valor}} </small></h4>
+						</div>
+						
+				    		<div class="col-xs-8">
+				    		<div class="progress">
+			                  <div class="progress-bar bg-color-{{selectedLinea.key}}"
+			                     role="progressbar"
+			                     ng-style="{ 'width': d.percentage + '%' }">
+			                  </div>
+			               </div>
+			           		</div>
+					</div>
+				</div>
+			</div>
 
 			<canvas id="bar" class="chart  chart-horizontal-bar" chart-colors="colors" chart-data="data" chart-labels="labels"
                       chart-series="series" chart-options="options"></canvas>
 	<div  id="chart">
 	</div>
  </div>
+
 
 
 

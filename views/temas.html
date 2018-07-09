@@ -1,16 +1,25 @@
 
            
 <div class="container">
-	<p> Mirá los temas que fueron más reclamados durante: <br/>
+	<p> Mirá los temas que fueron más reclamados durante: </p>
+	<div class="row">
+		<div class="col-xs-12 col-md-3">
 	Año:	<select name="options" ng-change="changeOption()" id="optionsYear" ng-model="selectedYear" ng-options="opt for opt in selectOptions">
 </select>
+</div>
+<div class="col-xs-12 col-md-3">
 	Mes:	<select name="options" ng-change="changeOption()" id="optionsMes" ng-model="selectedMes" ng-options="opt for opt in selectMesOption">
 	</select>
+	</div>
+<div class="col-xs-12 col-md-3">
 	Línea:	<select name="options" ng-change="changeOption()" id="lineas" ng-model="selectedLinea" ng-options="opt for opt in selectLineaOptions">
 	</select>
+	</div>
+<div class="col-xs-12 col-md-3">
 		Temas:	<select name="options" ng-change="changeOption()" id="temas" ng-model="selectedTema" ng-options="opt for opt in selectTemaOptions">
 	</select>
-</p>
+</div>
+</div>
 
 <p> En
 			<span ng-show="selectedYear == 'TODOS'"> <strong> 2014 a 2017 </strong> </span>
@@ -18,14 +27,14 @@
 			se realizaron <strong> {{all}} </strong> reclamos 
 			<span ng-hide="selectedEstacion != 'TODAS'">
 				<span ng-show="selectedLinea =='TODAS'"> <strong> en toda </strong> la <strong>red de Subte </strong> </span>
-				<span ng-show="selectedLinea !='TODAS'"> en toda la línea <strong> {{selectedLinea}}</strong> </span>
+				<span ng-show="selectedLinea !='TODAS'"> en la línea <strong> {{selectedLinea}}</strong> </span>
 			</span>
 				<span ng-show="selectedEstacion != 'TODAS'">en la estación <strong>{{selectedEstacion}}</strong> </span>
 				<span ng-show="selectedTema != 'TODOS'"> por <strong>{{selectedTema}} </strong></span> siendo las estaciones más reclamadas 
 				<span ng-repeat="r in primerosTres">
 					<strong> {{r.categoria}} </strong> con  <strong> {{r.valor}} reclamos </strong>,
 				</span>.
-			
+			 
 </div>
 <div class="container">
 	<div ng-hide="currentMapEstacion">

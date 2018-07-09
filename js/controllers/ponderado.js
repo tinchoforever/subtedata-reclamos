@@ -51,9 +51,19 @@ angular.module('initApp')
       });
 
     }
+    var total = 0;
 		$scope.data = $scope.serve.map(function(t){
+      total +=t.valor;
 			return t.valor;
 		})
+
+    $scope.ordered = $scope.serve.map(function(t){
+      t.categoria = toTitleCase(t.categoria);
+      t.percentage = Math.round((t.valor * 100 / total) * 100) / 100;
+      return t;
+    }).sort(function(a,b){
+       return d3.descending(a.valor,b.valor);
+    });
 		
 		
 
