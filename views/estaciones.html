@@ -1,8 +1,10 @@
 <div class="container meses" ng-hide="detailOn">
-	<h3> Mirá cómo se distribuyeron los reclamos por mes y por Línea durante
-		Año::	<select name="options" ng-change="changeOption()" id="options" ng-model="selectedYear" ng-options="opt.year for opt in selectOptions">
-	</select>
-	 </h3>
+	<h4> Mirá cómo se distribuyeron los reclamos por mes y por Línea durante </h4>
+			<div class="row">
+				<div class="col-xs-12 col-md-3">
+			Año:	<select name="options" ng-change="changeOption()" id="options" ng-model="selectedYear" ng-options="opt for opt in selectOptions"></select>
+		</div>
+
 	 <h5> En las celdas pueden verse la cantidad de reclamos que recibió cada línea mensualmente. Hacé click en ellas para conocer más detalles.</h5>
 	<div class="row" ng-hide="detailOn">
 		<div class="col-xs-1">
@@ -29,12 +31,12 @@
 	<div class="row" ng-show="detailOn">
 		<div class="col-md-12 right">
 			<a href="" ng-click="closeDetail()"> Volver a Grilla </a>
-		</div>En enero de 2017 la Línea A recibió 124 reclamos. 
-Los reclamos más frecuentes fueron:
+		</div>
+
 
 		<div class="col-xs-12">
 		<h3 class="color-{{selectedLinea.key}}"> En <strong>{{getMonthName(mes.key)}}</strong> de <strong>{{selectedYear.year}} </strong>la Línea {{selectedLinea.key}} </strong> recibió <strong>{{selectedMonth.values.length}}</strong> reclamos. </h3>
-		<h3> Los mas reclamados fueron: </h3>
+		<h3> Los reclamos más frecuentes fueron: </h3>
 		</div>
 		<div class="col-xs-12">
 		<div ng-repeat="temas in selectedMonth.temas.slice(0,3)" >

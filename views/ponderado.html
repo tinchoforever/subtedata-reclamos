@@ -32,7 +32,7 @@
 				<span ng-show="selectedLinea !='TODAS' && selectedLinea !='Sin especificar'"> en la linea <strong> {{selectedLinea}}</strong> </span>
 				<span ng-show="selectedLinea =='Sin especificar'">  <strong> sin especificar una estación </strong></span> 
 			</span>
-			<span ng-show="selectedEstacion != 'TODAS'">en la estación <strong>{{selectedEstacion}}</strong>. </span>
+			<span ng-show="selectedEstacion != 'TODAS'"> en la estación <strong>{{selectedEstacion}}</strong>. </span>
 			 Los reclamos menos frecuentes fueron 
 			<span ng-repeat="z in ultimosTres">
 				<strong> {{z.valor}}  </strong> por <strong>   {{z.categoria}}</strong>,  

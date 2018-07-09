@@ -136,13 +136,14 @@ var reRender = function(renderId){
 
   var tooltipGraph = d3.select("body div.viz-tip");
   var tooltipMap = d3.select("body div#" + renderId + "-tip");
+  var vizHeight = mobilecheck() ? 325 : 550;
 
   d3.xml("images/mapa.svg").mimeType("image/svg+xml").get(function(error, xml) {
         if (error) throw error;
         d3.select("#" + renderId).node().appendChild(xml.documentElement);
         d3.select("#" + renderId + " svg")
           .attr('width','100%')
-          .attr('height','550px');
+          .attr('height', vizHeight + 'px');
 
         d3.selectAll("#" + renderId + " svg .linea circle")
           .on('click', renderMapTooltip)

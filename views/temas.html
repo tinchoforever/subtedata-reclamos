@@ -1,7 +1,7 @@
 
            
 <div class="container">
-	<p> Mirá los temas que fueron más reclamados durante: </p>
+	<h4> Mirá los temas que fueron más reclamados durante: </h4>
 	<div class="row">
 		<div class="col-xs-12 col-md-3">
 	Año:	<select name="options" ng-change="changeOption()" id="optionsYear" ng-model="selectedYear" ng-options="opt for opt in selectOptions">
@@ -21,7 +21,29 @@
 </div>
 </div>
 
-<p> En
+	<hr/>
+	
+
+<div class="container">
+			<div class="row">
+			<div ng-hide="currentMapEstacion">
+		<h5> Elegi una estación en el mapa para poder ver los temas mas reclamados en cada estación.</h5> 
+				</div>
+		<div ng-show="currentMapEstacion">
+		<h5> En <strong>{{currentMapEstacion.estacion}}  </strong> se realizaron  {{currentMapEstacion.valor}} reclamos, en los cuales los usuarios reclamaron </h5> 
+		<span ng-repeat="r in currentMove.slice(0,4)">
+						<strong> {{r.categoria}} </strong> unas  <strong> {{r.valor}} </strong> veces,
+					</span> 
+				</div>	
+
+		</div>
+
+		</div>
+			<hr/>
+
+
+		<subte-chart container="'subte'" lines="serve"></subte-chart>
+		<p> En
 			<span ng-show="selectedYear == 'TODOS'"> <strong> 2014 a 2017 </strong> </span>
 			<span ng-hide="selectedYear == 'TODOS'"> <strong> {{selectedYear}} </strong> </span> 
 			se realizaron <strong> {{all}} </strong> reclamos 
@@ -29,30 +51,8 @@
 				<span ng-show="selectedLinea =='TODAS'"> <strong> en toda </strong> la <strong>red de Subte </strong> </span>
 				<span ng-show="selectedLinea !='TODAS'"> en la línea <strong> {{selectedLinea}}</strong> </span>
 			</span>
-				<span ng-show="selectedEstacion != 'TODAS'">en la estación <strong>{{selectedEstacion}}</strong> </span>
+				<span ng-show="selectedEstacion != 'TODAS'">en la estación <strong> {{selectedEstacion}} </strong> </span>
 				<span ng-show="selectedTema != 'TODOS'"> por <strong>{{selectedTema}} </strong></span> siendo las estaciones más reclamadas 
 				<span ng-repeat="r in primerosTres">
 					<strong> {{r.categoria}} </strong> con  <strong> {{r.valor}} reclamos </strong>,
 				</span>.
-			 
-</div>
-<div class="container">
-	<div ng-hide="currentMapEstacion">
-<h5> Elegi una estación en el mapa para poder ver los temas mas reclamados en cada estación.</h5> 
-			<p><strong> - </strong></p>
-			<p><strong> - </strong></p>
-		</div>
-<div ng-show="currentMapEstacion">
-
-<h5> En <strong>{{currentMapEstacion.estacion}} {{currentMapEstacion.linea}} </strong> se realizaron  {{currentMapEstacion.valor}} reclamos, en los cuales los usuarios reclamaron </h5> 
-<span ng-repeat="r in currentMove.slice(0,4)">
-				<strong> {{r.categoria}} </strong> unas  <strong> {{r.valor}} </strong> veces,
-			</span> 
-		</div>
-</div>
-
-				<subte-chart
-		container="'subte'"
-		lines="serve"
-	></subte-chart>
-
