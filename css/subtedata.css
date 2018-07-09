@@ -131,7 +131,7 @@ img.logo{
 }
 
 footer#footer {
-	display: block;
+	`block;
     width: 100%;
     
     padding: 0.5em;
@@ -404,3 +404,19 @@ h3.article.button.button-primary{
     -o-transition: width 1s ease-in-out;
     transition: width 1s ease-in-out;
 }
+
+ .screen-only{
+     display: block;
+}
+ .mobile-only {
+     display: none;
+}
+ @media screen and (max-width: 480px) {
+     .screen-only {
+         display: none;
+    }
+     .mobile-only {
+         display: block;
+    }
+}
+ 
