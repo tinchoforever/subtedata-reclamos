@@ -30,9 +30,9 @@
 		<h5> Elegi una estación en el mapa para poder ver los temas mas reclamados en cada estación.</h5> 
 				</div>
 		<div ng-show="currentMapEstacion">
-		<h5> En <strong>{{currentMapEstacion.estacion}}  </strong> se realizaron  {{currentMapEstacion.valor}} reclamos, en los cuales los usuarios reclamaron </h5> 
+		<h5> En <strong class="color-{{currentMapEstacion.linea}}">{{currentMapEstacion.estacion | titleCase}}  </strong> se realizaron  {{currentMapEstacion.valor}} reclamos, en los cuales los usuarios reclamaron </h5> 
 		<span ng-repeat="r in currentMove.slice(0,4)">
-						<strong> {{r.categoria}} </strong> unas  <strong> {{r.valor}} </strong> veces,
+						<strong> {{r.categoria | titleCase}} </strong> unas  <strong> {{r.valor}} </strong> veces,
 					</span> 
 				</div>	
 
@@ -51,8 +51,8 @@
 				<span ng-show="selectedLinea =='TODAS'"> <strong> en toda </strong> la <strong>red de Subte </strong> </span>
 				<span ng-show="selectedLinea !='TODAS'"> en la línea <strong> {{selectedLinea}}</strong> </span>
 			</span>
-				<span ng-show="selectedEstacion != 'TODAS'">en la estación <strong> {{selectedEstacion}} </strong> </span>
-				<span ng-show="selectedTema != 'TODOS'"> por <strong>{{selectedTema}} </strong></span> siendo las estaciones más reclamadas 
+				<span ng-show="selectedEstacion != 'TODAS'">en la estación <strong> {{selectedEstacion | titleCase}} </strong> </span>
+				<span ng-show="selectedTema != 'TODOS'"> por <strong>{{selectedTema | titleCase}} </strong></span> siendo las estaciones más reclamadas 
 				<span ng-repeat="r in primerosTres">
-					<strong> {{r.categoria}} </strong> con  <strong> {{r.valor}} reclamos </strong>,
+					<strong> {{r.categoria | titleCase}} </strong> con  <strong> {{r.valor}} reclamos </strong>,
 				</span>.

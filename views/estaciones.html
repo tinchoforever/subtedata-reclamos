@@ -2,13 +2,15 @@
 	<h4> Mirá cómo se distribuyeron los reclamos por mes y por Línea durante </h4>
 			<div class="row">
 				<div class="col-xs-12 col-md-3">
-			Año:	<select name="options" ng-change="changeOption()" id="options" ng-model="selectedYear" ng-options="opt for opt in selectOptions"></select>
+			Año:	<select name="options" ng-change="changeOption()" id="options" ng-model="selectedYear" ng-options="opt.year for opt in selectOptions"></select>
 		</div>
 
+	</div>
+	<hr/>
 	 <h5> En las celdas pueden verse la cantidad de reclamos que recibió cada línea mensualmente. Hacé click en ellas para conocer más detalles.</h5>
 	<div class="row" ng-hide="detailOn">
 		<div class="col-xs-1">
-				<h3> - </h3>
+				<h3> _ </h3>
 				<div ng-repeat="mes in stats.lineas[0].years[0].months">
 					<div class="row  linea-mes ">
 						<h3> {{getMonthName(mes.key)}} </h3>
@@ -45,7 +47,7 @@
 	    			<h5 class="color-{{selectedLinea.key}}"> <strong>{{temas.values.length}}</strong> </h5>
 	    		</div>
 	    		<div class="col-xs-8">
-	    			<h5 class="color-{{selectedLinea.key}}"> {{temas.key}}</h5>
+	    			<h5 class="color-{{selectedLinea.key}}"> {{temas.key | titleCase}}</h5>
 	    		</div>
 	    	</div>
 	    	<div class="row">

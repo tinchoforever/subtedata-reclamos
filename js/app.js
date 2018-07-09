@@ -38,7 +38,12 @@ angular.module('initApp',['ngRoute', 'ngAnimate', 'c3', 'chart.js'])
         controller: 'ponderadoController'
       })
       
-});
+}).filter('titleCase', function() {
+    return function(input) {
+      input = input || '';
+      return input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    };
+  });
  
 new WOW().init();
               

@@ -24,7 +24,7 @@
 			<span ng-hide="selectedYear == 'TODOS' && selectedMes == 'TODOS'"> En <strong><span ng-hide="selectedMes == 'TODOS'"> {{selectedMes}} </span></strong><strong  ng-hide="selectedYear == 'TODOS'"> {{selectedYear}} </strong> </span> 
 			se realizaron <strong> {{all}} </strong> reclamos de los cuales fueron
 			<span ng-repeat="r in primerosTres">
-				<strong>  {{r.valor}} </strong>  por <strong> {{r.categoria}}  </strong>,
+				<strong>  {{r.valor}} </strong>  por <strong> {{r.categoria | titleCase}}  </strong>,
 			</span> 
 			<span ng-hide="selectedEstacion != 'TODAS'">
 
@@ -32,10 +32,10 @@
 				<span ng-show="selectedLinea !='TODAS' && selectedLinea !='Sin especificar'"> en la linea <strong> {{selectedLinea}}</strong> </span>
 				<span ng-show="selectedLinea =='Sin especificar'">  <strong> sin especificar una estación </strong></span> 
 			</span>
-			<span ng-show="selectedEstacion != 'TODAS'"> en la estación <strong>{{selectedEstacion}}</strong>. </span>
+			<span ng-show="selectedEstacion != 'TODAS'"> en la estación <strong>{{selectedEstacion | titleCase}}</strong>. </span>
 			 Los reclamos menos frecuentes fueron 
 			<span ng-repeat="z in ultimosTres">
-				<strong> {{z.valor}}  </strong> por <strong>   {{z.categoria}}</strong>,  
+				<strong> {{z.valor}}  </strong> por <strong>   {{z.categoria | titleCase}}</strong>,  
 			</span>.
 		</p>
 <hr/>
@@ -43,7 +43,7 @@
 				<div class="inner-detail">
 					<div class="" ng-repeat="d in ordered">
 						<div class="col-xs-7">
-							<h5>{{d.categoria}}</h5>
+							<h5>{{d.categoria | titleCase}}</h5>
 						</div>
 						<div class="col-xs-3">
 							<h4>  {{d.percentage}}% </h4>
