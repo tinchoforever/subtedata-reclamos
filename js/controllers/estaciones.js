@@ -5,6 +5,9 @@ angular.module('initApp')
     $scope.getMonthName = function(i){
       return window.nombresMesesCorto[i-1];
     };
+        $scope.getFullMonthName = function(i){
+      return window.nombresMeses[i-1];
+    };
 	$scope.changeOption = function(){
 		
 		
