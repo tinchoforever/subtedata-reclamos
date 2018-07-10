@@ -45,6 +45,7 @@ angular.module('initApp')
  	$scope.getValueFor = function(linea,mes){
  		var y= linea.years[$scope.selectedYear.opts];
  		var c = 0;
+
  		if (y){
  		
 	 		for (var i = 0; i < y.months.length; i++) {
